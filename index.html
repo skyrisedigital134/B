@@ -3,28 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyRise Digital | 3D Immersive Studio</title>
+    <title>SkyRise Digital | Official 3D Portfolio</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --gold: #D4AF37; --black: #050505; }
-
-        body {
-            background-color: var(--black);
-            color: #fff;
-            font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
-        }
-
+        body { background-color: #000; color: #fff; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
         #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
-
-        /* Smooth Scroll Container */
-        #main-container { position: relative; width: 100%; }
 
         section {
             min-height: 100vh;
@@ -32,72 +21,46 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 100px 10%;
-            position: relative;
+            padding: 0 10%;
         }
 
-        /* 3D Glass Navigation */
+        /* Nav */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 25px 5%;
+            position: fixed; top: 0; width: 100%; padding: 20px 5%;
             display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
         }
-        .logo { height: 50px; filter: drop-shadow(0 0 10px var(--gold)); }
+        .logo { height: 50px; }
 
-        /* Hero Styling */
+        /* Hero */
         .hero h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 8rem; text-align: center; line-height: 0.8;
-            background: linear-gradient(to bottom, #fff, var(--gold), #8a6d3b);
+            font-family: 'Cinzel', serif; font-size: 7rem; text-align: center;
+            background: linear-gradient(to right, #fff, #D4AF37, #fff);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .hero p { letter-spacing: 10px; color: #D4AF37; font-weight: bold; margin-top: 10px; }
 
-        /* 3D Service Cards */
-        .services-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; width: 100%;
-        }
-
-        .service-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            padding: 60px; border-radius: 20px;
-            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            transform-style: preserve-3d;
-        }
-
-        .service-card:hover {
-            border-color: var(--gold);
-            transform: perspective(1000px) rotateX(10deg) rotateY(-5deg) translateY(-10px);
-            background: rgba(212, 175, 55, 0.05);
-        }
-
-        .service-card h3 {
-            font-family: 'Cinzel'; color: var(--gold);
-            font-size: 2.5rem; margin-bottom: 20px;
-        }
-
-        /* Information Sections */
-        .info-block { margin: 100px 0; text-align: center; max-width: 800px; }
-        .info-block h2 { font-family: 'Cinzel'; font-size: 3rem; color: var(--gold); margin-bottom: 20px; }
-        .info-block p { font-size: 1.2rem; color: #ccc; line-height: 1.8; }
-
-        /* Contact Blast */
-        .contact-3d {
+        /* Info Card */
+        .data-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid #D4AF37;
+            padding: 50px; border-radius: 15px;
+            width: 100%; max-width: 900px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
             text-align: center;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            width: 100%; padding: 100px 0;
         }
+
+        .data-card h2 { font-family: 'Cinzel'; color: #D4AF37; font-size: 2.5rem; margin-bottom: 30px; }
+        .data-item { font-size: 1.5rem; margin: 15px 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .data-item span { color: #D4AF37; font-weight: 700; }
 
         .btn-gold {
-            padding: 20px 50px; font-size: 1.2rem; font-weight: bold;
-            color: var(--black); background: var(--gold);
-            border-radius: 50px; text-decoration: none;
-            display: inline-block; margin: 20px; transition: 0.4s;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            display: inline-block; padding: 15px 40px; background: #D4AF37;
+            color: #000; text-decoration: none; font-weight: bold;
+            border-radius: 5px; margin-top: 30px; transition: 0.3s;
         }
-
-        .btn-gold:hover { transform: scale(1.1); box-shadow: 0 0 60px var(--gold); }
+        .btn-gold:hover { transform: scale(1.1); box-shadow: 0 0 50px #D4AF37; }
     </style>
 </head>
 <body>
@@ -106,141 +69,81 @@
 
     <nav>
         <img src="logo.png" alt="SkyRise" class="logo">
-        <div style="color:var(--gold); letter-spacing: 5px; font-weight: bold;">EST. 2026</div>
+        <div style="color:#D4AF37;">8218440133</div>
     </nav>
 
-    <main id="main-container">
-        
-        <section class="hero-sec">
-            <h1 id="hero-title">SKYRISE<br>DIGITAL</h1>
-            <p style="letter-spacing: 15px; color: #555; margin-top: 20px;">PREMIUM 3D ARCHITECTURE</p>
-        </section>
+    <section class="hero">
+        <h1>SKYRISE DIGITAL</h1>
+        <p>ELITE WEB SOLUTIONS</p>
+    </section>
 
-        <section>
-            <div class="info-block" data-aos-trigger>
-                <h2>The Developer</h2>
-                <p>SkyRise Digital is a professional website design and development house led by vision. We don't just build pages; we build digital assets in high-end Black and Gold aesthetics that project authority and luxury.</p>
-            </div>
-        </section>
+    <section>
+        <div class="data-card">
+            <h2>CURRENT PROJECTS</h2>
+            <div class="data-item">Service: <span>The Dhol Nation (Shere Punjab Dhol)</span></div>
+            <div class="data-item">Client: <span>Sonu Band</span></div>
+            <div class="data-item">Tool: <span>QR Generator System</span></div>
+        </div>
+    </section>
 
-        <section>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>Web Design</h3>
-                    <p>Modern, responsive, and ultra-fast websites built from scratch with custom animations.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Recrafting</h3>
-                    <p>Transforming old websites into modern 3D masterpieces with elite performance updates.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Branding</h3>
-                    <p>Unique Black and Gold logos and digital assets that define your brand's identity.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Automation</h3>
-                    <p>YouTube automation systems and content factories designed for high-scale digital growth.</p>
-                </div>
-            </div>
-        </section>
+    <section>
+        <div class="data-card">
+            <h2>DEVELOPER INFO</h2>
+            <div class="data-item">Role: <span>Website Designer & Developer</span></div>
+            <div class="data-item">Interests: <span>Numismatics & YouTube Automation</span></div>
+            <div class="data-item">Favorite: <span>Punjab Kings (PBKS) Fan</span></div>
+        </div>
+    </section>
 
-        <section>
-            <div class="info-block">
-                <h2>Our Portfolio</h2>
-                <div style="margin-top: 50px;">
-                    <p>• QR Generator System</p>
-                    <p>• Sonu Band Digital Presence</p>
-                    <p>• Shere Punjab Dhol Website</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="info-block">
-                <h2>The DNA</h2>
-                <p>Passionate about Numismatics (Indian Commemorative Coins), YouTube Automation, and a proud fan of Punjab Kings (PBKS). We blend personal passion with professional excellence.</p>
-            </div>
-        </section>
-
-        <section class="contact-3d">
-            <h2 style="font-family: 'Cinzel'; font-size: 4rem;">LET'S CONNECT</h2>
-            <div style="margin-top: 40px;">
-                <a href="https://wa.me/918218440133" class="btn-gold">WHATSAPP</a>
-                <a href="https://www.instagram.com/skyrisedigital" class="btn-gold">INSTAGRAM</a>
-            </div>
-            <p style="margin-top: 40px; color: #444;">8218440133 | skyrisedigital00@gmail.com</p>
-        </section>
-
-    </main>
+    <section>
+        <div class="data-card">
+            <h2>CONTACT DIRECT</h2>
+            <div class="data-item">Phone: <span>+91 8218440133</span></div>
+            <div class="data-item">Email: <span>skyrisedigital00@gmail.com</span></div>
+            <a href="https://wa.me/918218440133" class="btn-gold">WHATSAPP NOW</a>
+        </div>
+    </section>
 
     <script>
-        // --- 1. THREE.JS: THE GOLD UNIVERSE ---
+        // --- 3D ENVIRONMENT ---
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
 
-        // 3D Geometry: A floating Gold Torus Knot
-        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.02,
-            color: 0xD4AF37,
-            transparent: true,
-            opacity: 0.8
-        });
-        
-        const starGeometry = new THREE.BufferGeometry();
-        const starCnt = 5000;
-        const posArray = new Float32Array(starCnt * 3);
-        for(let i=0; i < starCnt * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 100;
-        }
-        starGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const stars = new THREE.Points(starGeometry, particlesMaterial);
-        scene.add(stars);
+        // Gold Floating Mesh
+        const geometry = new THREE.IcosahedronGeometry(10, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0xD4AF37, wireframe: true });
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
 
-        camera.position.z = 30;
+        camera.position.z = 25;
 
         function animate() {
             requestAnimationFrame(animate);
-            stars.rotation.y += 0.001;
-            stars.rotation.x += 0.0005;
+            sphere.rotation.y += 0.005;
+            sphere.rotation.x += 0.002;
             renderer.render(scene, camera);
         }
         animate();
 
-        // --- 2. GSAP: SCROLL MAGIC ---
+        // GSAP Scroll
         gsap.registerPlugin(ScrollTrigger);
-
-        // Hero Animation
-        gsap.from("#hero-title", {
-            duration: 2.5, y: 150, opacity: 0, ease: "power4.out"
-        });
-
-        // 3D Background movement on scroll
-        gsap.to(stars.position, {
-            z: 50,
-            scrollTrigger: {
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 2
-            }
-        });
-
-        // Section Fade-In Reveal
-        gsap.utils.toArray("section").forEach(sec => {
-            gsap.from(sec, {
-                opacity: 0, y: 50, duration: 1.5,
-                scrollTrigger: {
-                    trigger: sec,
-                    start: "top 70%",
-                    toggleActions: "play none none reverse"
-                }
+        
+        gsap.utils.toArray(".data-card").forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: { trigger: card, start: "top 80%" },
+                scale: 0.8, opacity: 0, duration: 1, ease: "back.out(1.7)"
             });
         });
 
-        // Handle Resize
+        // Background Sync with Scroll
+        window.addEventListener('scroll', () => {
+            const rotation = window.scrollY * 0.002;
+            sphere.rotation.z = rotation;
+            sphere.position.y = -window.scrollY * 0.02;
+        });
+
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
